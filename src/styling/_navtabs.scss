@@ -1,0 +1,36 @@
+#navTabs {
+  list-style: none;
+  display: inline-flex;
+  align-items: flex-end;
+  padding: 0;
+  margin: 0;
+  .tab {
+    a {
+      background-color: $customGray;
+      padding: 5px 15px;
+      color: white;
+      border-radius: 8px 8px 0 0;
+      font-weight: 700;
+      display: block;
+      &:hover,
+      &:visited,
+      &:link,
+      &:active {
+        color: white;
+        text-decoration: none;
+      }
+
+      &:hover {
+        background-color: rgb(135, 135, 135);
+      }
+    }
+  }
+  .activeTab {
+    a {
+      background-color: $customOrange;
+      &:hover {
+        background-color: $customOrange;
+      }
+    }
+  }
+}

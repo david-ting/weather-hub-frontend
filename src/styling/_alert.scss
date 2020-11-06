@@ -1,0 +1,14 @@
+.alert {
+  border: 1.5px solid red;
+  background-color: pink;
+  border-radius: 10px;
+  text-align: center;
+  color: red;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span:nth-child(2) {
+    padding: 5px;
+  }
+}

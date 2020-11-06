@@ -1,0 +1,781 @@
+@charset "UTF-8";
+.loading {
+  position: relative;
+}
+
+.loading::after {
+  z-index: 1000;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(49, 49, 49, 0.572);
+}
+
+.loading::before {
+  z-index: 1001;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 10px solid #e3e1e1;
+  border-top-color: #ff9d00;
+  margin-left: -40px;
+  margin-top: -40px;
+  -webkit-animation: spinning 2s linear infinite;
+          animation: spinning 2s linear infinite;
+}
+
+@-webkit-keyframes spinning {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spinning {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.checkBoxContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 2px;
+  height: 40px;
+  width: 150px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 5px 0 5px;
+  cursor: pointer;
+}
+
+.checkBoxContainer .checkLabel {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+.checkBoxContainer input {
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+  opacity: 0;
+}
+
+.checkBoxContainer .newCheckBox {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  border: 2px solid #d47405;
+  margin-right: 8px;
+  padding-bottom: 2px;
+}
+
+.checkBoxContainer input:checked + .newCheckBox {
+  background-color: #ff9d00;
+}
+
+.checkBoxContainer input:checked + .newCheckBox::after {
+  color: white;
+  font-size: 20px;
+  line-height: 20px;
+  content: "✓";
+}
+
+.radioContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 5px 10px 0 0;
+}
+
+.radioContainer input {
+  display: none;
+}
+
+.radioContainer input:checked + div {
+  border-color: #ff9d00;
+}
+
+.radioContainer .newRadio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  border: 6px solid #dddcdc;
+}
+
+.radioContainer .newRadio:hover {
+  border-color: #b2afaf;
+}
+
+.btn {
+  color: white;
+  background-color: #b2afaf;
+  border: none;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #878787;
+}
+
+.activeBtn {
+  background-color: #ff9d00;
+}
+
+.activeBtn:hover {
+  background-color: #ff9d00;
+}
+
+.slidecontainer {
+  width: 100%;
+  /* Width of the outside container */
+}
+
+.slidecontainer label {
+  padding: 10px 0;
+  display: block;
+  text-align: center;
+}
+
+.slidecontainer label input {
+  margin: 0 auto;
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;
+  /* Override default CSS styles */
+  -moz-appearance: none;
+       appearance: none;
+  border-radius: 5px;
+  width: var(--dragBtnwidth);
+  /* dynamic width */
+  height: 20px;
+  /* Specified height */
+  background: #d3d3d3;
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  opacity: 0.7;
+  /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s;
+  /* 0.2 seconds transition on hover */
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1;
+  /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 25px;
+  /* dynamic width */
+  height: 25px;
+  /* Slider handle height */
+  background: #1d9fd7;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  /* dynamic width */
+  height: 25px;
+  /* Slider handle height */
+  background: #1d9fd7;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+#navTabs {
+  list-style: none;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  padding: 0;
+  margin: 0;
+}
+
+#navTabs .tab a {
+  background-color: #b2afaf;
+  padding: 5px 15px;
+  color: white;
+  border-radius: 8px 8px 0 0;
+  font-weight: 700;
+  display: block;
+}
+
+#navTabs .tab a:hover, #navTabs .tab a:visited, #navTabs .tab a:link, #navTabs .tab a:active {
+  color: white;
+  text-decoration: none;
+}
+
+#navTabs .tab a:hover {
+  background-color: #878787;
+}
+
+#navTabs .activeTab a {
+  background-color: #ff9d00;
+}
+
+#navTabs .activeTab a:hover {
+  background-color: #ff9d00;
+}
+
+.my-div-icon .ripple-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.my-div-icon .ripple-container span {
+  background-color: rgba(255, 166, 0, 0.441);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 50%;
+  -webkit-animation: pulse 1.5s linear calc(0.5s * var(--i)) infinite;
+          animation: pulse 1.5s linear calc(0.5s * var(--i)) infinite;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    width: 0%;
+    height: 0%;
+  }
+  100% {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    width: 0%;
+    height: 0%;
+  }
+  100% {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+  }
+}
+
+.highlight {
+  background-color: #ff9d00;
+  color: white;
+  border: 1px solid #d47405;
+}
+
+#tableHead {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 20px;
+  padding: 15px 15px;
+  background-color: #f6f2f2;
+}
+
+#horiWeather {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color: #f6f2f2;
+}
+
+#horiWeather .main-column {
+  width: 125px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+#horiWeather .main-column:not(:first-child) {
+  background-color: white;
+}
+
+#horiWeather .main-column .item {
+  padding: 6px;
+  border: 1px solid #d47405;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#horiWeather .main-column .item:first-child {
+  border-top: 2px solid #d47405;
+}
+
+#horiWeather .main-column .item:nth-child(3) {
+  height: 160px;
+}
+
+#horiWeather .main-column .item:last-child {
+  border-bottom: 2px solid #d47405;
+}
+
+#horiWeather #labels .item {
+  border-left: 2px solid #d47405;
+  border-right: 2px solid #d47405;
+}
+
+#horiWeather #labels .item:nth-child(2) {
+  border-top: 2px solid #d47405;
+}
+
+#horiWeather #labels .item:first-child {
+  border: none;
+}
+
+#horiWeather #forecasts {
+  overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#horiWeather #forecasts .main-column:first-child .item {
+  border-left: none;
+}
+
+#horiWeather #forecasts .main-column:first-child .item:first-child {
+  border-left: 2px solid #d47405;
+}
+
+#horiWeather #forecasts .main-column:first-child .item:not(:first-child) {
+  background: #f3caa4;
+}
+
+#horiWeather #forecasts .main-column:last-child .item {
+  border-right: 2px solid #d47405;
+}
+
+#vertWeather {
+  padding: 10px 20px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 80px auto 80px auto;
+      grid-template-columns: 80px auto 80px auto;
+  overflow: auto;
+  background-color: #f6f2f2;
+  position: relative;
+}
+
+#vertWeather .left-col,
+#vertWeather .right-col {
+  border: 1px solid #d47405;
+}
+
+#vertWeather .left-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  padding: 0 2px;
+}
+
+#vertWeather .right-col {
+  background-color: white;
+}
+
+#vertWeather .right-col:nth-child(2) {
+  background: #f3caa4;
+}
+
+#vertWeather .right-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#vertWeather .right-col .weather {
+  -ms-flex-preferred-size: 250px;
+      flex-basis: 250px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 10px;
+  text-align: center;
+}
+
+#vertWeather .right-col .weatherData {
+  -ms-flex-preferred-size: auto;
+      flex-basis: auto;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 2.5px;
+}
+
+#vertWeather .right-col .weatherData div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media only screen and (max-width: 500px) {
+  #vertWeather .right-col .weather {
+    padding: 0 5px;
+  }
+  #vertWeather .right-col .weather img {
+    width: 40px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  #vertWeather {
+    -ms-grid-columns: fit-content(100px) auto;
+        grid-template-columns: fit-content(100px) auto;
+  }
+  #vertWeather .weather {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.alert {
+  border: 1.5px solid red;
+  background-color: pink;
+  border-radius: 10px;
+  text-align: center;
+  color: red;
+  margin-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.alert span:nth-child(2) {
+  padding: 5px;
+}
+
+#lineChoices {
+  padding-left: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  background-color: #f6f2f2;
+}
+
+.recharts-wrapper {
+  background-color: #f6f2f2;
+}
+
+#hourly-chart-top {
+  padding: 0 20px;
+  background-color: #f6f2f2;
+}
+
+#hourly-chart-top h3 {
+  padding-top: 10px;
+  margin: 0;
+}
+
+#website-title {
+  margin: 0;
+  padding: 10px 20px;
+  background: -webkit-gradient(linear, left top, right top, from(#ff9d00), to(white));
+  background: linear-gradient(to right, #ff9d00 0% 70%, white 100%);
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#hub {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 10px;
+}
+
+#search-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f6f2f2;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+#search-container h3 {
+  margin: 0 0 10px 10px;
+}
+
+#map-container {
+  -ms-flex-preferred-size: calc(100% - 230px);
+      flex-basis: calc(100% - 230px);
+}
+
+#map-container #map {
+  height: 400px;
+  width: 100%;
+}
+
+#search-forecast-container,
+#search-weather-map-container {
+  -ms-flex-preferred-size: 230px;
+      flex-basis: 230px;
+  padding-top: 10px;
+}
+
+#search-forecast-container form,
+#search-weather-map-container form {
+  padding: 10px;
+}
+
+#search-forecast-container input {
+  border-radius: 5px;
+  border: 2px solid #b2afaf;
+  padding: 5px 10px;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  display: block;
+}
+
+#search-forecast-container input:focus {
+  -webkit-box-shadow: 0 0 5px #51cbee;
+          box-shadow: 0 0 5px #51cbee;
+  border: 2px solid #b2afaf;
+}
+
+fieldset {
+  padding: 0;
+  margin-left: 0;
+  margin-right: 10px;
+  border: none;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.autocomplete-options-container {
+  z-index: 10;
+  background: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 100px;
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+  position: absolute;
+  border: 2px solid #b2afaf;
+  border-radius: 5px;
+}
+
+.autocomplete-options-container .autocomplete-options {
+  border-bottom: 2px solid #b2afaf;
+  width: 100%;
+}
+
+.autocomplete-options-container .autocomplete-options a {
+  display: block;
+  color: black;
+}
+
+.autocomplete-options-container .autocomplete-options a:hover, .autocomplete-options-container .autocomplete-options a:visited, .autocomplete-options-container .autocomplete-options a:link, .autocomplete-options-container .autocomplete-options a:active {
+  text-decoration: none;
+  color: black;
+}
+
+.autocomplete-options-container .autocomplete-options:hover {
+  color: #ff9d00;
+  border-bottom: 2px solid #ff9d00;
+  background-color: #f8e9dc;
+}
+
+@media only screen and (max-width: 1000px) {
+  #search-container {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  #map-container {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  #map-container #map {
+    height: 300px;
+  }
+  #search-forecast-container,
+  #search-weather-map-container {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  #search-forecast-container form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    width: 100%;
+  }
+  #search-forecast-container fieldset {
+    -ms-flex-preferred-size: calc(100% / 3 - 10px);
+        flex-basis: calc(100% / 3 - 10px);
+    min-width: 180px;
+  }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  scrollbar-color: #ff9d00 #e7e6e6;
+}
+
+* ::-webkit-scrollbar {
+  width: 10px;
+}
+
+* ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+* ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ff9d00;
+}
+
+body {
+  margin: 0;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-container {
+  padding: 3.5vh 8vw;
+  min-height: calc(100vh - 63px);
+  position: relative;
+}
+
+.main-container::after {
+  content: "";
+  background-image: url("../images/background.png");
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+/*# sourceMappingURL=main.css.map */

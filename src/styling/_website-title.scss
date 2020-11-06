@@ -1,0 +1,13 @@
+#website-title {
+  margin: 0;
+  padding: 10px 20px;
+  background: linear-gradient(to right, $customOrange 0% 70%, white 100%);
+  color: white;
+  display: flex;
+}
+
+#hub {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}

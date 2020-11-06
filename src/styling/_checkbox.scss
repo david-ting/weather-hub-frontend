@@ -1,0 +1,36 @@
+.checkBoxContainer {
+  display: flex;
+  margin: 2px;
+  height: 40px;
+  width: 150px;
+  align-items: center;
+  padding: 0 5px 0 5px;
+  cursor: pointer;
+
+  .checkLabel {
+    order: 2;
+  }
+  input {
+    order: 3;
+    opacity: 0;
+  }
+  .newCheckBox {
+    order: 1;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    border: 2px solid $customeBrown;
+    margin-right: 8px;
+    padding-bottom: 2px;
+  }
+  input:checked + .newCheckBox {
+    background-color: $customOrange;
+    &::after {
+      color: white;
+      font-size: 20px;
+      line-height: 20px;
+      content: "✓";
+    }
+  }
+}

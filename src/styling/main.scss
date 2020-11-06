@@ -1,0 +1,62 @@
+$customOrange: #ff9d00;
+$customeBrown: rgb(212, 116, 5);
+$customGray: rgb(178, 175, 175);
+
+@import "./loading";
+@import "./checkbox";
+@import "./radio";
+@import "./button";
+@import "./slider";
+@import "./navtabs";
+@import "./div-icon";
+@import "./weather-table";
+@import "./alert";
+@import "./chart";
+@import "./website-title";
+@import "./search-forms";
+
+* {
+  box-sizing: border-box;
+
+  // only work in firefox
+  scrollbar-color: $customOrange rgb(231, 230, 230);
+
+  // only work in webkit browsers
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $customOrange;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-container {
+  padding: 3.5vh 8vw;
+  min-height: calc(100vh - 63px);
+  position: relative;
+  &::after {
+    content: "";
+    background-image: url("../images/background.png");
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+}
