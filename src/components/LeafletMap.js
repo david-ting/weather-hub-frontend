@@ -27,15 +27,17 @@ function LeafletMap({ coord, layer, children }) {
   let position = [parseFloat(coord.lat), parseFloat(coord.lng)];
 
   const moveMarker = (latLng) => {
-    setChangeByInput(false);
-    setCountry(["", ""]);
-    setCity("");
-    history.push(
-      `${pathname}?lat=${encodeURIComponent(
-        latLng.lat
-      )}&lng=${encodeURIComponent(latLng.lng)}`
-    );
-    setMatchedCities([]);
+    if (searchType === "geo") {
+      setChangeByInput(false);
+      setCountry(["", ""]);
+      setCity("");
+      setMatchedCities([]);
+      history.push(
+        `${pathname}?lat=${encodeURIComponent(
+          latLng.lat
+        )}&lng=${encodeURIComponent(latLng.lng)}`
+      );
+    }
   };
 
   const refmarker = createRef();
@@ -74,13 +76,15 @@ function LeafletMap({ coord, layer, children }) {
           position={cityCoord}
           icon={active ? activeMarker : inactiveMarker}
           onClick={() => {
-            history.push(
-              `${pathname}?countryCode=${encodeURIComponent(
-                country[0]
-              )}&countryName=${encodeURIComponent(
-                country[1]
-              )}&cityName=${encodeURIComponent(c.name)}`
-            );
+            if (searchType === "city") {
+              history.push(
+                `${pathname}?countryCode=${encodeURIComponent(
+                  country[0]
+                )}&countryName=${encodeURIComponent(
+                  country[1]
+                )}&cityName=${encodeURIComponent(c.name)}`
+              );
+            }
           }}
           onMouseOver={(e) => {
             e.target._icon.setAttribute("src", activeMarkerURL);

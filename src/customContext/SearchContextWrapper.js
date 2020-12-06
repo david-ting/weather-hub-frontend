@@ -84,6 +84,9 @@ function SearchContextWrapper({ children }) {
   useEffect(() => {
     const geoCalculator = () => {
       ReactDOM.unstable_batchedUpdates(async () => {
+        if (searchType !== "city") {
+          return;
+        }
         try {
           if (city === "") {
             setAlertCity(false);
@@ -131,6 +134,7 @@ function SearchContextWrapper({ children }) {
                   country[1]
                 )}&cityName=${encodeURIComponent(exactMatchedCity.name)}`
               );
+
               setMatchedCities([]);
             } else {
               setMatchedCities(results);
@@ -147,24 +151,25 @@ function SearchContextWrapper({ children }) {
     clearTimeout(timeout);
 
     setValidCity(false);
-
-    timeout = setTimeout(
-      () =>
-        (async () => {
-          try {
-            const validatedCountry = await validateCountry(country[0]);
-            if (validatedCountry) {
-              geoCalculator();
-            } else {
-              setMatchedCities([]);
+    if (searchType === "city") {
+      timeout = setTimeout(
+        () =>
+          (async () => {
+            try {
+              const validatedCountry = await validateCountry(country[0]);
+              if (validatedCountry) {
+                geoCalculator();
+              } else {
+                setMatchedCities([]);
+              }
+            } catch (error) {
+              console.log(error);
             }
-          } catch (error) {
-            console.log(error);
-          }
-        })(),
-      1000
-    );
-  }, [country, city, setMatchedCities, pathname, history]);
+          })(),
+        1000
+      );
+    }
+  }, [country, city, setMatchedCities, pathname, history, searchType]);
 
   return (
     <SearchContext.Provider

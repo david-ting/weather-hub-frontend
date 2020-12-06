@@ -16,12 +16,17 @@ function ByLatLong() {
     changeByInput,
     setChangeByInput,
     setMatchedCities,
+    searchType,
   } = useContext(SearchContext);
   const history = useHistory();
   const pathname = useLocation().pathname;
 
   // type = "lat" or "lng"
   const coordHandler = (value, type) => {
+    if (searchType !== "geo") {
+      return;
+    }
+
     let change = {};
     if (isNaN(value)) {
       change[type] = "";

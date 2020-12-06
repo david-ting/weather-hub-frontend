@@ -90,7 +90,6 @@ const Chart = ({ data, duration, tickInterval }) => {
     const handler = () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        console.log(window.outerWidth);
         if (window.outerWidth < 450) {
           setFontSize(12);
         } else {

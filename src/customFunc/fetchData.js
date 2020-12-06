@@ -84,9 +84,6 @@ export async function getCities(
 ) {
   if (countryCode === "" || cityName === "") return [];
   try {
-    console.log(
-      `${SERVER_DOMAIN}/get_cities/${countryCode}/${cityName}?offset=${offset}&limit=${limit}`
-    );
     const response = await fetch(
       `${SERVER_DOMAIN}/get_cities/${countryCode}/${cityName}?offset=${offset}&limit=${limit}`
     );

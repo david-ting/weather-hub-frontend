@@ -201,9 +201,6 @@ function Table(props) {
 }
 
 function remain(prevProps, nextProps) {
-  console.log(prevProps.forecasts);
-  console.log(nextProps.forecasts);
-
   if (
     JSON.stringify(prevProps.forecasts.data) !==
       JSON.stringify(nextProps.forecasts.data) ||
@@ -216,4 +213,3 @@ function remain(prevProps, nextProps) {
 }
 
 export default React.memo(Table, remain);
-

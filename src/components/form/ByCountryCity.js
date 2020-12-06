@@ -9,7 +9,9 @@ import { SearchContext } from "../../customContext/SearchContextWrapper";
 let timeout;
 
 function ByCountryCity() {
-  const { country, city, alertCity, matchedCities } = useContext(SearchContext);
+  const { country, city, alertCity, matchedCities, searchType } = useContext(
+    SearchContext
+  );
 
   const matched_cities_name =
     matchedCities.length > 0 ? matchedCities.map((c) => c.name) : [];
@@ -21,6 +23,10 @@ function ByCountryCity() {
   const history = useHistory();
 
   const changeCountry = (value, type) => {
+    if (searchType !== "city") {
+      clearTimeout(timeout);
+      return;
+    }
     if (type === "id") {
       history.push(
         `${pathname}?countryCode=${encodeURIComponent(
@@ -42,10 +48,14 @@ function ByCountryCity() {
     }
     timeout = setTimeout(() => {
       ReactDOM.unstable_batchedUpdates(async () => {
+        if (searchType !== "city") {
+          return;
+        }
         try {
           const result = await getCountries(type, value, true);
           if (result.length === 1) {
             setCountryList([[], []]);
+            setAlertCountry(false);
             history.push(
               `${pathname}?countryCode=${encodeURIComponent(
                 result[0].id
@@ -53,7 +63,6 @@ function ByCountryCity() {
                 result[0].name
               )}&cityName=${""}`
             );
-            setAlertCountry(false);
           } else {
             const generalResult = await getCountries(type, value, false);
             if (generalResult.length > 0) {
@@ -74,6 +83,9 @@ function ByCountryCity() {
   };
 
   const changeCity = (value) => {
+    if (searchType !== "city") {
+      return;
+    }
     history.push(
       `${pathname}?countryCode=${encodeURIComponent(
         country[0]
