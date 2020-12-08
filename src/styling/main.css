@@ -62,7 +62,7 @@
   display: flex;
   margin: 2px;
   height: 40px;
-  width: 150px;
+  min-width: 150px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -555,30 +555,22 @@
 
 #lineChoices {
   padding-left: 20px;
+  background-color: #f6f2f2;
+}
+
+#lineChoices fieldset {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  background-color: #f6f2f2;
-}
-
-@media (max-width: 750px) {
-  #lineChoices {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
-  }
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .recharts-wrapper {

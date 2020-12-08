@@ -1,14 +1,11 @@
 #lineChoices {
   padding-left: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
   background-color: rgb(246, 242, 242);
-  // height: 50px;
-  @media (max-width: 750px) {
-    flex-direction: column;
-    align-items: flex-start;
+  fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
   }
 }
 
