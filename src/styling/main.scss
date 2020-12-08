@@ -46,6 +46,12 @@ body {
 
 .main-container {
   padding: 3.5vh 8vw;
+  @media (max-width: 1000px) {
+    padding: 3vh 5vw;
+  }
+  @media (max-width: 500px) {
+    padding: 2vh 2vw;
+  }
   min-height: calc(100vh - 63px);
   position: relative;
   &::after {

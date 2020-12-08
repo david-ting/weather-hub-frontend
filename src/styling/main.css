@@ -778,6 +778,18 @@ body {
   position: relative;
 }
 
+@media (max-width: 1000px) {
+  .main-container {
+    padding: 3vh 5vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-container {
+    padding: 2vh 2vw;
+  }
+}
+
 .main-container::after {
   content: "";
   background-image: url("../images/background.png");
