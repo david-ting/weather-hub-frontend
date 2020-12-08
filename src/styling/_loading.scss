@@ -1,3 +1,9 @@
+@keyframes spinning {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .loading {
   position: relative;
   &::after {
@@ -26,8 +32,14 @@
     animation: spinning 2s linear infinite;
   }
 }
-@keyframes spinning {
-  to {
-    transform: rotate(360deg);
-  }
+
+.small-spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 5px solid rgb(227, 225, 225);
+  border-top-color: $customOrange;
+  animation: spinning 2s linear infinite;
+  display: inline-block; 
+  margin-left: 5px;
 }

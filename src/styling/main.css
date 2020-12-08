@@ -1,4 +1,17 @@
 @charset "UTF-8";
+@-webkit-keyframes spinning {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes spinning {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 .loading {
   position: relative;
 }
@@ -31,18 +44,16 @@
           animation: spinning 2s linear infinite;
 }
 
-@-webkit-keyframes spinning {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-@keyframes spinning {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+.small-spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 5px solid #e3e1e1;
+  border-top-color: #ff9d00;
+  -webkit-animation: spinning 2s linear infinite;
+          animation: spinning 2s linear infinite;
+  display: inline-block;
+  margin-left: 5px;
 }
 
 .checkBoxContainer {
@@ -777,5 +788,29 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+.align-vert-center-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 5px;
+}
+
+.gray-text {
+  color: #807b7b;
+}
+
+.flex-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 0;
 }
 /*# sourceMappingURL=main.css.map */

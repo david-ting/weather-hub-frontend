@@ -60,3 +60,19 @@ body {
     z-index: -1;
   }
 }
+
+.align-vert-center-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.gray-text {
+  color: rgb(128, 123, 123);
+}
+.flex-text {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 0;
+}

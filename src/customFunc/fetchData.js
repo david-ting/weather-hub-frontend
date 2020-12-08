@@ -1,7 +1,7 @@
 import { lngConvertor } from "./convertor";
 const SERVER_DOMAIN = process.env.REACT_APP_SERVER_DOMAIN;
 
-export async function fetchForecast(coord, duration, updateForecast) {
+export async function fetchForecast(coord, duration) {
   let part = ["current", "minutely", "hourly", "daily"];
   part = part.filter((p) => p !== duration).join(", ");
 
@@ -13,12 +13,12 @@ export async function fetchForecast(coord, duration, updateForecast) {
     );
     if (response.status === 200) {
       const data = await response.json();
-      updateForecast(data);
+      return data;
     } else {
       throw new Error();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -35,7 +35,7 @@ export async function validateCountry(code) {
       throw new Error();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return false;
   }
 }
@@ -53,7 +53,7 @@ export async function validateCity(countryCode, name) {
       throw new Error();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return false;
   }
 }
@@ -71,7 +71,7 @@ export async function getAllCities(countryCode, offset = 0, limit = 100) {
       throw new Error();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return [];
   }
 }
@@ -94,7 +94,7 @@ export async function getCities(
       throw new Error();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return [];
   }
 }
@@ -112,7 +112,7 @@ export async function getCountries(type, query, exact) {
       throw new Error();
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return [];
   }
 }

@@ -4,11 +4,9 @@ import { SearchContext } from "../../customContext/SearchContextWrapper";
 import { lngConvertor } from "../../customFunc/convertor";
 import Alert from "../Alert";
 
-let timeout;
-
 function ByLatLong() {
-  const [validLat, setValidLat] = useState(true);
-  const [validLng, setValidLng] = useState(true);
+  const [latAlert, setLatAlert] = useState(false);
+  const [lngAlert, setLngAlert] = useState(false);
   const {
     coord,
     setCountry,
@@ -52,29 +50,35 @@ function ByLatLong() {
   };
 
   useEffect(() => {
-    clearTimeout(timeout);
     if (changeByInput) {
-      timeout = setTimeout(() => {}, 250);
-
       let { lat, lng } = coord;
-      lat = parseFloat(lat);
-      lng = parseFloat(lng);
 
-      if (!isNaN(lat) && Math.abs(lat) > 90) {
-        setValidLat(false);
+      if (lat === "") {
+        setLatAlert(false);
       } else {
-        setValidLat(true);
+        lat = parseFloat(lat);
+        if (isNaN(lat)) {
+          setLatAlert(true);
+        } else if (!isNaN(lat) && Math.abs(lat) > 90) {
+          setLatAlert(true);
+        } else {
+          setLatAlert(false);
+        }
       }
 
-      if (!isNaN(lng) && Math.abs(lng) > 180) {
-        setValidLng(false);
+      if (lng === "") {
+        setLngAlert(false);
       } else {
-        setValidLng(true);
+        lng = parseFloat(lng);
+        if (isNaN(lng)) {
+          setLngAlert(true);
+        } else if (!isNaN(lng) && Math.abs(lng) > 180) {
+          setLngAlert(true);
+        } else {
+          setLngAlert(false);
+        }
       }
     }
-    return () => {
-      clearTimeout(timeout);
-    };
   }, [coord, changeByInput]);
 
   return (
@@ -89,9 +93,13 @@ function ByLatLong() {
             onChange={(event) => coordHandler(event.target.value, "lat")}
           ></input>
         </label>
-        {!validLat && (
-          <Alert content="Please enter a number between -90 and 90" />
-        )}
+        {
+          <Alert
+            content="Please enter a number between -90 and 90"
+            show={latAlert}
+            setShow={setLatAlert}
+          />
+        }
       </fieldset>
       <br></br>
       <fieldset>
@@ -104,9 +112,13 @@ function ByLatLong() {
             onChange={(event) => coordHandler(event.target.value, "lng")}
           ></input>
         </label>
-        {!validLng && (
-          <Alert content="Please enter a number between -180 and 180" />
-        )}
+        {
+          <Alert
+            content="Please enter a number between -180 and 180"
+            show={lngAlert}
+            setShow={setLngAlert}
+          />
+        }
         <br></br>
       </fieldset>
     </>

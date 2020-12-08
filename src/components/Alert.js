@@ -2,14 +2,14 @@ import React from "react";
 import { MdClose } from "react-icons/md";
 import { IconContext } from "react-icons";
 
-function Alert({ content }) {
+function Alert({ content, show, setShow }) {
   return (
     <IconContext.Provider value={{ size: "1.5rem" }}>
-      <div className="alert">
+      <div className="alert" style={{ display: show ? "flex" : "none" }}>
         <span>{content}</span>
         <span
-          onClick={(event) => {
-            event.currentTarget.parentElement.style.display = "none";
+          onClick={() => {
+            setShow(false);
           }}
         >
           <MdClose />

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useLocation, useHistory } from "react-router-dom";
 import { getCountries } from "../../customFunc/fetchData";
@@ -6,47 +6,61 @@ import Alert from "../Alert";
 import AutoComplete from "../AutoComplete";
 import { SearchContext } from "../../customContext/SearchContextWrapper";
 
-let timeout;
-
 function ByCountryCity() {
-  const { country, city, alertCity, matchedCities, searchType } = useContext(
-    SearchContext
-  );
+  const {
+    country,
+    city,
+    alertCity,
+    setAlertCity,
+    matchedCities,
+    searchType,
+    cityLoading,
+    setCityLoading,
+  } = useContext(SearchContext);
 
   const matched_cities_name =
     matchedCities.length > 0 ? matchedCities.map((c) => c.name) : [];
 
   const [alertCountry, setAlertCountry] = useState(false);
   const [countryList, setCountryList] = useState([[], []]);
+  const [countryLoading, setCountryLoading] = useState([false, false]);
+  const timeout = useRef(null);
 
   const pathname = useLocation().pathname;
   const history = useHistory();
 
   const changeCountry = (value, type) => {
     if (searchType !== "city") {
-      clearTimeout(timeout);
+      clearTimeout(timeout.current);
       return;
     }
+
+    setAlertCity(false);
+    setCityLoading(false);
+
     if (type === "id") {
       history.push(
         `${pathname}?countryCode=${encodeURIComponent(
           value
         )}&countryName=${""}&cityName=${""}`
       );
+      setCountryLoading([true, false]);
     } else if (type === "name") {
       history.push(
         `${pathname}?countryCode=${""}&countryName=${encodeURIComponent(
           value
         )}&cityName=${""}`
       );
+      setCountryLoading([false, true]);
     }
     setCountryList([[], []]);
-    clearTimeout(timeout);
+    clearTimeout(timeout.current);
     if (value === "") {
       setAlertCountry(false);
+      setCountryLoading([false, false]);
       return;
     }
-    timeout = setTimeout(() => {
+    timeout.current = setTimeout(() => {
       ReactDOM.unstable_batchedUpdates(async () => {
         if (searchType !== "city") {
           return;
@@ -75,7 +89,9 @@ function ByCountryCity() {
               setCountryList([[], []]);
             }
           }
+          setCountryLoading([false, false]);
         } catch (error) {
+          setCountryLoading([false, false]);
           console.log(error);
         }
       });
@@ -118,16 +134,25 @@ function ByCountryCity() {
 
   return (
     <>
+      <div className="gray-text flex-text">
+        <div>Please fill in the country</div>
+        <div>&nbsp;and then the city</div>
+      </div>
       <AutoComplete
         setOptions={setCountryList}
         options={countryList[0]}
         item={country[0]}
         setItem={(value) => changeCountry(value, "id")}
         label="Country Code"
+        loading={countryLoading[0]}
       >
-        {alertCountry && country[0] !== "" && (
-          <Alert content="Country Code Not Found"></Alert>
-        )}
+        {
+          <Alert
+            content="Country Code Not Found"
+            show={alertCountry && country[0] !== ""}
+            setShow={setAlertCountry}
+          ></Alert>
+        }
       </AutoComplete>
 
       <br></br>
@@ -137,10 +162,15 @@ function ByCountryCity() {
         item={country[1]}
         setItem={(value) => changeCountry(value, "name")}
         label="Country"
+        loading={countryLoading[1]}
       >
-        {alertCountry && country[1] !== "" && (
-          <Alert content="Country Name Not Found"></Alert>
-        )}
+        {
+          <Alert
+            content="Country Name Not Found"
+            show={alertCountry && country[1] !== ""}
+            setShow={setAlertCountry}
+          ></Alert>
+        }
       </AutoComplete>
       <br></br>
       <AutoComplete
@@ -148,8 +178,16 @@ function ByCountryCity() {
         item={city}
         setItem={changeCity}
         label="City"
+        loading={cityLoading && city !== ""}
+        disabled={country[0] === "" || country[1] === "" ? true : false}
       >
-        {alertCity && <Alert content="City Not Found"></Alert>}
+        {
+          <Alert
+            content="City Not Found"
+            show={alertCity}
+            setShow={setAlertCity}
+          ></Alert>
+        }
       </AutoComplete>
     </>
   );

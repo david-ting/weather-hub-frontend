@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useLocation, useHistory } from "react-router-dom";
 import {
@@ -11,8 +11,6 @@ import { coordValidator } from "../customFunc/validator";
 
 export const SearchContext = createContext();
 
-let timeout;
-
 function SearchContextWrapper({ children }) {
   const [searchType, setSearchType] = useState("geo");
   const [coord, setCoord] = useState({ lat: "0", lng: "0" });
@@ -20,6 +18,7 @@ function SearchContextWrapper({ children }) {
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState(false);
   const [alertCity, setAlertCity] = useState(false);
+  const [cityLoading, setCityLoading] = useState(false);
   const [matchedCities, setMatchedCities] = useState([]);
   const [changeByInput, setChangeByInput] = useState();
   const validCoord = coordValidator(coord, changeByInput);
@@ -28,6 +27,9 @@ function SearchContextWrapper({ children }) {
   const [layer, setLayer] = useState("temp_new");
   const { pathname, search } = useLocation();
   const history = useHistory();
+
+  const checkCityTimeout = useRef(null);
+  const fetchForecastsTimeout = useRef(null);
 
   useEffect(() => {
     const searchObj = new URLSearchParams(search);
@@ -54,30 +56,32 @@ function SearchContextWrapper({ children }) {
   }, [pathname, search, country]);
 
   useEffect(() => {
+    clearTimeout(fetchForecastsTimeout.current);
+    // console.log(fetchForecastsTimeout);
     const match = pathname.match(/^\/forecast\/(daily|hourly)/);
     let duration = "";
     if (match !== null) {
       duration = match[1];
     }
     const dataFetching = () => {
+      if (!(duration === "daily" || duration === "hourly")) return;
       setForecasts((forecasts) => ({ ...forecasts, loading: true }));
-      const updateForecast = (data) => {
-        switch (duration) {
-          case "daily":
+
+      fetchForecast(coord, duration)
+        .then((data) => {
+          if (duration === "daily") {
             setForecasts({ loading: false, data: data.daily });
-            break;
-          case "hourly":
+          } else if (duration === "hourly") {
             setForecasts({ loading: false, data: data.hourly });
-            break;
-          default:
-            break;
-        }
-      };
-      fetchForecast(coord, duration, updateForecast);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     };
 
     if (validCoord && duration !== "") {
-      dataFetching();
+      fetchForecastsTimeout.current = setTimeout(dataFetching, 1000);
     }
   }, [coord, changeByInput, validCoord, pathname]);
 
@@ -106,7 +110,6 @@ function SearchContextWrapper({ children }) {
           } else {
             const { results } = await getCities(country[0], city);
             if (results.length === 0) {
-              console.log(results);
               setAlertCity(true);
               setMatchedCities([]);
               return;
@@ -141,18 +144,21 @@ function SearchContextWrapper({ children }) {
             }
           }
         } catch (error) {
-          console.log(error);
+          console.error(error);
           setAlertCity(true);
           setMatchedCities([]);
           return;
         }
       });
+      setCityLoading(false);
     };
-    clearTimeout(timeout);
+    clearTimeout(checkCityTimeout.current);
+    // console.log(checkCityTimeout);
 
     setValidCity(false);
     if (searchType === "city") {
-      timeout = setTimeout(
+      setCityLoading(true);
+      checkCityTimeout.current = setTimeout(
         () =>
           (async () => {
             try {
@@ -161,9 +167,10 @@ function SearchContextWrapper({ children }) {
                 geoCalculator();
               } else {
                 setMatchedCities([]);
+                setCityLoading(false);
               }
             } catch (error) {
-              console.log(error);
+              console.error(error);
             }
           })(),
         1000
@@ -183,8 +190,11 @@ function SearchContextWrapper({ children }) {
         setCity,
         validCity,
         alertCity,
+        setAlertCity,
         matchedCities,
         setMatchedCities,
+        cityLoading,
+        setCityLoading,
         changeByInput,
         setChangeByInput,
         validCoord,

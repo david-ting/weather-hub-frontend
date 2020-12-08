@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import escapeStringRegexp from "escape-string-regexp";
 
-function AutoComplete({ item, setItem, options, setOptions, label, children }) {
+function AutoComplete({
+  item,
+  setItem,
+  options,
+  setOptions,
+  label,
+  children,
+  loading,
+  disabled,
+}) {
   const [focus, setFocus] = useState(false);
 
   const searchHandler = (e) => {
@@ -42,9 +51,12 @@ function AutoComplete({ item, setItem, options, setOptions, label, children }) {
   return (
     <fieldset className="autocomplete-fieldset">
       <label>
-        {" "}
-        {label}
+        <div className="align-vert-center-wrapper">
+          {label}
+          {loading && <div className="small-spinner"></div>}
+        </div>
         <input
+          disabled={disabled === true ? true : false}
           type="text"
           name={label}
           onChange={searchHandler}
