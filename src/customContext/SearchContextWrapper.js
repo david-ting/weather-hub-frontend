@@ -6,6 +6,7 @@ import {
   getAllCities,
   getCities,
   validateCountry,
+  validateCity,
 } from "../customFunc/fetchData";
 import { coordValidator } from "../customFunc/validator";
 
@@ -116,17 +117,17 @@ function SearchContextWrapper({ children }) {
             }
 
             setAlertCity(false);
-            // get exact city by ILIKE in backend?
-            const exactMatchedCity = results.find(
-              (c) => c.name.toUpperCase() === city.toUpperCase()
-            );
-            if (exactMatchedCity) {
+            const exactMatchedCity = await validateCity(country[0], city);
+
+            if (exactMatchedCity.found) {
               setCoord({
                 lat: (
-                  Math.round(parseFloat(exactMatchedCity.lat) * 1000) / 1000
+                  Math.round(parseFloat(exactMatchedCity.result.lat) * 1000) /
+                  1000
                 ).toString(),
                 lng: (
-                  Math.round(parseFloat(exactMatchedCity.lon) * 1000) / 1000
+                  Math.round(parseFloat(exactMatchedCity.result.lon) * 1000) /
+                  1000
                 ).toString(),
               });
               setValidCity(true);
@@ -135,7 +136,7 @@ function SearchContextWrapper({ children }) {
                   country[0]
                 )}&countryName=${encodeURIComponent(
                   country[1]
-                )}&cityName=${encodeURIComponent(exactMatchedCity.name)}`
+                )}&cityName=${encodeURIComponent(exactMatchedCity.result.name)}`
               );
 
               setMatchedCities([]);

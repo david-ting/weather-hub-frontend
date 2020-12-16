@@ -41,14 +41,13 @@ export async function validateCountry(code) {
 }
 
 export async function validateCity(countryCode, name) {
-  if (countryCode === "" || name === "") return false;
+  if (countryCode === "" || name === "") return { found: false };
   try {
     const response = await fetch(
       `${SERVER_DOMAIN}/validate_city/${countryCode}/${name}`
     );
     if (response.status === 200) {
-      const boolean = await response.json();
-      return boolean;
+      return await response.json();
     } else {
       throw new Error();
     }
