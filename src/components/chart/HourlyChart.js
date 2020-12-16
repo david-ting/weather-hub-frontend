@@ -57,6 +57,7 @@ function HourlyChart({ forecasts }) {
       </div>
       <Chart
         data={data}
+        loading={forecasts.loading}
         duration="hourly"
         tickInterval={size > 7 ? Math.ceil(size / 7) - 1 : 0}
       />

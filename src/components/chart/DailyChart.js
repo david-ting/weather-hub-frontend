@@ -16,7 +16,7 @@ function DailyChart({ forecasts }) {
     });
   });
 
-  return <Chart data={data} duration="daily"/>;
+  return <Chart data={data} duration="daily" loading={forecasts.loading} />;
 }
 
 export default DailyChart;

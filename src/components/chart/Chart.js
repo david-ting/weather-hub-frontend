@@ -15,7 +15,7 @@ import CustomLine from "./customization/CustomLine";
 import CustomTooltip from "./customization/CustomTooltip";
 import LineChoices from "./LineChoices";
 
-const Chart = ({ data, duration, tickInterval }) => {
+const Chart = ({ data, duration, tickInterval, loading }) => {
   const [fontSize, setFontSize] = useState(16);
   const [checkList, setCheckList] = useState({
     temperature: true,
@@ -108,7 +108,11 @@ const Chart = ({ data, duration, tickInterval }) => {
   return (
     <Fragment>
       <LineChoices checkList={checkList} changeCheckList={changeCheckList} />
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer
+        width="100%"
+        height={300}
+        className={loading ? "loading" : ""}
+      >
         <LineChart data={data} margin={{ top: 20, right: 15, left: 10 }}>
           <CartesianGrid stroke="#ccc" strokeDasharray="10 10" />
           <Legend
@@ -214,6 +218,9 @@ const Chart = ({ data, duration, tickInterval }) => {
 };
 
 const remain = (prevProps, nextProps) => {
+  if (prevProps.loading !== nextProps.loading) {
+    return false;
+  }
   if (prevProps.duration !== nextProps.duration) {
     return false;
   }
