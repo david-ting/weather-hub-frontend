@@ -162,13 +162,19 @@ function LeafletMap({ coord, layer, children }) {
               ref={refmarker}
             >
               <Popup>
-                {country[0] !== "" && country[1] !== "" && (
-                  <>
-                    {validCity && <>{city}, </>} {country[1]}
-                    <br></br>
-                  </>
-                )}
-                {`lat: ${coord.lat},`} {`lng: ${lngConvertor(coord.lng)}`}
+                <div className="pop-up">
+                  {country[0] !== "" && country[1] !== "" && (
+                    <>
+                      <img
+                        src={`https://www.countryflags.io/${country[0]}/flat/64.png`}
+                      ></img>
+                      <br></br>
+                      {validCity && <>{city}, </>} {country[1]}
+                      <br></br>
+                    </>
+                  )}
+                  {`lat: ${coord.lat},`} {`lng: ${lngConvertor(coord.lng)}`}
+                </div>
               </Popup>
             </Marker>
 
