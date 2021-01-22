@@ -96,10 +96,12 @@ function LeafletMap({ coord, layer, children }) {
           }}
         >
           <Popup>
-            {c.name}
-            <br></br>
-            lat: {Math.round(parseFloat(c.lat) * 1000) / 1000}, lng:
-            {Math.round(parseFloat(c.lon) * 1000) / 1000}
+            <div className="pop-up">
+              {c.name}
+              <br></br>
+              lat: {Math.round(parseFloat(c.lat) * 1000) / 1000}, lng:
+              {Math.round(parseFloat(c.lon) * 1000) / 1000}
+            </div>
           </Popup>
         </Marker>
       );
